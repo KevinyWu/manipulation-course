@@ -16,7 +16,7 @@ git clone https://github.com/KevinyWu/manipulation-course.git
 cd manipulation-course
 
 # Create a virtual environment in the project root
-python3.10 -m venv env
+python3 -m venv env
 
 # Activate the virtual environment
 source env/bin/activate
