@@ -13,6 +13,7 @@ Clone the repo and create a virtual environment. We use Python 3.10.12.
 ```bash
 # Clone the repository
 git clone https://github.com/KevinyWu/manipulation-course.git
+cd manipulation-course
 
 # Create a virtual environment in the project root
 python3.10 -m venv env
