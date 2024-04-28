@@ -1,6 +1,6 @@
 {
     "baudrate": 1000000,
-    "device_name": "/dev/tty.usbmodem578E0210511",
+    "device_name": "/dev/ttyACM1",
     "servo_ids_blue": [1, 2, 3, 4, 5],
     "joint_limits": [
         [1124, 1600, 0, 0, 0],

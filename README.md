@@ -1,9 +1,31 @@
 # Robotic Manipulation Course
 
 - [Robotic Manipulation Course](#robotic-manipulation-course)
+  - [Course Setup](#course-setup)
   - [Dynamixel Robot Arm](#dynamixel-robot-arm)
     - [Required Materials](#required-materials)
     - [Assembly](#assembly)
+
+## Course Setup
+
+Clone the repo and create a virtual environment. We use Python 3.10.12.
+
+```bash
+# Clone the repository
+git clone https://github.com/KevinyWu/manipulation-course.git
+
+# Create a virtual environment in the project root
+python3.10 -m venv env
+
+# Activate the virtual environment
+source env/bin/activate
+
+# Install the dependencies
+pip install -r requirements.txt
+
+# To deactivate the virtual environment
+deactivate
+```
 
 ## Dynamixel Robot Arm
 
