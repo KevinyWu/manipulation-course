@@ -16,7 +16,7 @@ git clone https://github.com/KevinyWu/manipulation-course.git
 cd manipulation-course
 
 # Add the project to the PYTHONPATH in the virtual environment
-echo 'export PYTHONPATH="$PYTHONPATH:/path/to/manipulation-course"' >> env/bin/activate
+echo 'export PYTHONPATH="$PYTHONPATH:/absolute/path/to/manipulation-course"' >> env/bin/activate
 
 # Create a virtual environment in the project root
 python3 -m venv env
