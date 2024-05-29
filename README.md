@@ -41,18 +41,21 @@ The robot arm can be controlled with the Dynamixel SDK: ```pip install dynamixel
 
 ### Required Materials
 
-| Part                          | Cost | Buying link                                    | Specs |
+| Part                          | Cost | Buying link                                    | Notes |
 |-------------------------------|------|------------------------------------------------| --- |
-| 5x Dynamixel XL330-M288       | $120  | https://www.robotis.us/dynamixel-xl330-m288-t/ | https://emanual.robotis.com/docs/en/dxl/x/xl330-m288/|
-| XL330 Idler Wheel             | $10  | https://www.robotis.us/fpx330-h101-4pcs-set/   | |
-| XL330 Frame | $7   | https://www.robotis.us/fpx330-s101-4pcs-set/ | |
-| Waveshare Serial Bus Servo Driver Board | $10  | https://a.co/d/7C3RUYU                         | |
+| 5x Dynamixel XL330-M288       | $120  | https://www.robotis.us/dynamixel-xl330-m288-t/ | [Specs](https://emanual.robotis.com/docs/en/dxl/x/xl330-m288/)|
+| XL330 Idler Wheel             | $10  | https://www.robotis.us/fpx330-h101-4pcs-set/   | Pack of four; only three needed |
+| XL330 Frame | $9   | https://www.robotis.us/fpx330-s101-4pcs-set/ | Pack of four; only one needed |
+| Waveshare Serial Bus Servo Driver Board | $5  | https://www.waveshare.com/bus-servo-adapter-a.htm                         | |
+| Waveshare OV5693 5MP USB Camera       | $30  | https://www.waveshare.com/product/ov5693-5mp-usb-camera-a.htm                         | |
 | 5V Power Supply               | $6   | https://a.co/d/5u90NVp | |
 | Table Clamp                   | $6   | https://a.co/d/4KEiYdV                         | |
 | Wires                         | $7   | https://a.co/d/hQfk2cb                         | |
-| Total                         | $166 |                                                | |
+| Rubber Sheet                  | $2   | https://a.co/d/bEoalHQ                        | |
+| USB-C Cable                   | $8   | https://a.co/d/fA40KHY                        | Pack of two, only one needed|
+| Total                         | $194 |                                                | |
 
-There is usually a 10% discount code for the Robotis shop. It might also help to glue some rubber to the gripper (e.g. https://a.co/d/bEoalHQ). A USB-C cable is necessary to connect the servo driver board to a computer.
+There is usually a 10% discount code for the Robotis shop.
 
 ### Assembly
 
