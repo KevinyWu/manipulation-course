@@ -1,10 +1,8 @@
 import numpy as np
-from dynamixel import OperatingMode, ReadAttribute
-import time, json
-from dynamixel_sdk import GroupSyncRead, GroupSyncWrite, DXL_LOBYTE, DXL_HIBYTE, DXL_LOWORD, DXL_HIWORD
-from enum import Enum, auto
 from typing import Union
-
+from enum import Enum, auto
+from robot.dynamixel import Dynamixel, OperatingMode, ReadAttribute
+from dynamixel_sdk import GroupSyncRead, GroupSyncWrite, DXL_LOBYTE, DXL_HIBYTE, DXL_LOWORD, DXL_HIWORD
 
 class MotorControlType(Enum):
     PWM = auto()
@@ -12,11 +10,13 @@ class MotorControlType(Enum):
     DISABLED = auto()
     UNKNOWN = auto()
 
-
 class Robot:
-    def __init__(self, dynamixel, baudrate=1_000_000, servo_ids=[1, 2, 3, 4, 5]):
+    def __init__(self, device_name: str, baudrate=1_000_000, servo_ids=[1, 2, 3, 4, 5]) -> None:
         self.servo_ids = servo_ids
-        self.dynamixel = dynamixel
+        self.dynamixel = Dynamixel.Config(baudrate=baudrate, device_name=device_name).instantiate()
+        self._init_motors()
+
+    def _init_motors(self):
         self.position_reader = GroupSyncRead(
             self.dynamixel.portHandler,
             self.dynamixel.packetHandler,
@@ -69,8 +69,8 @@ class Robot:
             if position > 2 ** 31:
                 position -= 2 ** 32
             positions.append(position)
-        return positions
-
+        return np.array(positions)
+    
     def read_velocity(self):
         """
         Reads the joint velocities of the robot.
@@ -83,7 +83,7 @@ class Robot:
             if velocity > 2 ** 31:
                 velocity -= 2 ** 32
             velocties.append(velocity)
-        return velocties
+        return np.array(velocties)
 
     def set_goal_pos(self, action):
         """

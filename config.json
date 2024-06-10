@@ -1,9 +1,32 @@
 {
-    "baudrate": 1000000,
-    "device_name": "/dev/ttyACM1",
-    "servo_ids_blue": [1, 2, 3, 4, 5],
-    "joint_limits": [
-        [1124, 1600, 0, 0, 0],
-        [2972, 2800, 4096, 4096, 4096]
-    ]
+    "Lfollower": {
+        "baudrate": 1000000,
+        "device_name": "/dev/ttyACM1",
+        "servo_ids": [13, 14, 15, 16, 17, 18],
+        "joint_limits": [
+            [1124, 1600, 0, 0, 0, 0],
+            [2972, 2800, 4096, 4096, 4096, 4096]
+        ],
+        "home_pos": [2270, 1600, 1070, 2080, 2060, 2660]
+    },
+    "Lleader": {
+        "baudrate": 1000000,
+        "device_name": "/dev/ttyACM0",
+        "servo_ids": [19, 20, 21, 22, 23, 24]
+    },
+    "Rfollower": {
+        "baudrate": 1000000,
+        "device_name": "/dev/ttyACM2",
+        "servo_ids": [1, 2, 3, 4, 5, 6],
+        "joint_limits": [
+            [1124, 1600, 0, 0, 0, 0],
+            [2972, 2800, 4096, 4096, 4096, 4096]
+        ],
+        "home_pos": [2270, 1600, 1070, 2080, 2060, 2660]
+    },
+    "Rleader": {
+        "baudrate": 1000000,
+        "device_name": "/dev/ttyACM0",
+        "servo_ids": [7, 8, 9, 10, 11, 12]
+    }
 }
