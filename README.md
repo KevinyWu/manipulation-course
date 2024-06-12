@@ -68,8 +68,9 @@ Video of the assembly: MAKE VIDEO
    1. Connect the driver board to a computer (should work with Linux and MacOS)
    2. Figure out the device name (e.g. tty.usbmodem57380045631 for MacOS): ```ls /dev/tty.*```
    3. Scan each motor individually with [Dynamixel Wizard](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_wizard2/)
-      1. Set the baudrate to 1M for all motors
-      2. Set the servo IDs to 1 for the shoulder to 5 for the gripper servo
+      1. (Linux) Allow access to USB ports, then reboot for changes to take effect: `sudo usermod -aG dialout <your_account_id>; reboot`
+      2. Set the baudrate to 1M for all motors
+      3. Set the servo IDs to 1 for the shoulder to 5 for the gripper servo
 3. Assembly
    1. Assemble the arm without the base
       1. Make sure that the servos are fixed in the same position as in the CAD
