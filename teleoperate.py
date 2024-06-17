@@ -24,12 +24,14 @@ if not L and not R: # Bimanual is default
 if L:
     Lfollower = Robot(device_name=config['Lfollower']['device_name'], 
                       servo_ids=config['Lfollower']['servo_ids'])
+    Lfollower.limit_velocity(config['Lfollower']['velocity_limits'])
     Lleader = Robot(device_name=config['Lleader']['device_name'], 
                     servo_ids=config['Lleader']['servo_ids'])
     Lleader.set_trigger_torque()
 if R:
     Rfollower = Robot(device_name=config['Rfollower']['device_name'], 
                       servo_ids=config['Rfollower']['servo_ids'])
+    Rfollower.limit_velocity(config['Rfollower']['velocity_limits'])
     Rleader = Robot(device_name=config['Rleader']['device_name'], 
                     servo_ids=config['Rleader']['servo_ids'])
     Rleader.set_trigger_torque()

@@ -50,6 +50,8 @@ class Robot:
             self.pwm_writer.addParam(id, [2048])
         self._disable_torque()
         self.motor_control_state = MotorControlType.DISABLED
+        for motor_id, limit in zip(self.servo_ids, limits):
+            self.dynamixel.set_velocity_limit(motor_id, limit)
 
     def read_position(self, tries=2):
         """
@@ -129,12 +131,27 @@ class Robot:
         @return:
         """
         if isinstance(limit, int):
-            limits = [limit, ] * 5
+            limits = [limit, ] * len(self.servo_ids)
         else:
             limits = limit
         self._disable_torque()
         for motor_id, limit in zip(self.servo_ids, limits):
             self.dynamixel.set_pwm_limit(motor_id, limit)
+        self._enable_torque()
+
+    def limit_velocity(self, limit: Union[int, list, np.ndarray]):
+        """
+        Limits the velocity values for the servos in for position control
+        @param limit: 0 ~ 2047
+        @return:
+        """
+        if isinstance(limit, int):
+            limits = [limit, ] * len(self.servo_ids)
+        else:
+            limits = limit
+        self._disable_torque()
+        for motor_id, limit in zip(self.servo_ids, limits):
+            self.dynamixel.set_velocity_limit(motor_id, limit)
         self._enable_torque()
 
     def _disable_torque(self):
