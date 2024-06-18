@@ -31,12 +31,11 @@ class Dynamixel:
     ADDR_GOAL_POSITION = 116
     ADDR_VELOCITY_LIMIT = 44
     ADDR_GOAL_PWM = 100
-    ADDR_MAX_POSITION_LIMIT = 48
-    ADDR_MIN_POSITION_LIMIT = 52
     OPERATING_MODE_ADDR = 11
     POSITION_I = 82
     POSITION_P = 84
     ADDR_ID = 7
+    PROFILE_VELOCITY = 112
 
     @dataclass
     class Config:
@@ -205,15 +204,10 @@ class Dynamixel:
         dxl_comm_result, dxl_error = self.packetHandler.write4ByteTxRx(self.portHandler, motor_id,
                                                                        self.ADDR_VELOCITY_LIMIT, velocity_limit)
         self._process_response(dxl_comm_result, dxl_error, motor_id)
-
-    def set_max_position_limit(self, motor_id: int, max_position_limit):
+    
+    def set_profile_velocity(self, motor_id: int, velocity_limit):
         dxl_comm_result, dxl_error = self.packetHandler.write4ByteTxRx(self.portHandler, motor_id,
-                                                                       self.ADDR_MAX_POSITION_LIMIT, max_position_limit)
-        self._process_response(dxl_comm_result, dxl_error, motor_id)
-
-    def set_min_position_limit(self, motor_id: int, min_position_limit):
-        dxl_comm_result, dxl_error = self.packetHandler.write4ByteTxRx(self.portHandler, motor_id,
-                                                                       self.ADDR_MIN_POSITION_LIMIT, min_position_limit)
+                                                                       self.PROFILE_VELOCITY, velocity_limit)
         self._process_response(dxl_comm_result, dxl_error, motor_id)
 
     def set_P(self, motor_id: int, P: int):

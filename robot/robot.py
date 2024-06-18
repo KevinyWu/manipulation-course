@@ -11,8 +11,17 @@ class MotorControlType(Enum):
     UNKNOWN = auto()
 
 class Robot:
-    def __init__(self, device_name: str, baudrate=1_000_000, servo_ids=[1, 2, 3, 4, 5]) -> None:
+    def __init__(self, 
+                 device_name: str, 
+                 baudrate: int=1_000_000, 
+                 servo_ids: list=[1, 2, 3, 4, 5, 6],
+                 velocity_limit: Union[int, list, np.ndarray]=0) -> None:
         self.servo_ids = servo_ids
+        if isinstance(velocity_limit, int):
+            velocity_limit = [velocity_limit, ] * len(self.servo_ids)
+        else:
+            velocity_limit = velocity_limit
+        self.velocity_limit = velocity_limit
         self.dynamixel = Dynamixel.Config(baudrate=baudrate, device_name=device_name).instantiate()
         self._init_motors()
 
@@ -49,9 +58,8 @@ class Robot:
         for id in self.servo_ids:
             self.pwm_writer.addParam(id, [2048])
         self._disable_torque()
+
         self.motor_control_state = MotorControlType.DISABLED
-        for motor_id, limit in zip(self.servo_ids, limits):
-            self.dynamixel.set_velocity_limit(motor_id, limit)
 
     def read_position(self, tries=2):
         """
@@ -141,7 +149,7 @@ class Robot:
 
     def limit_velocity(self, limit: Union[int, list, np.ndarray]):
         """
-        Limits the velocity values for the servos in for position control
+        Limits the velocity values for the servos in for velocity control
         @param limit: 0 ~ 2047
         @return:
         """
@@ -175,5 +183,7 @@ class Robot:
         self._disable_torque()
         for motor_id in self.servo_ids:
             self.dynamixel.set_operating_mode(motor_id, OperatingMode.POSITION)
+        for motor_id, limit in zip(self.servo_ids, self.velocity_limit):
+            self.dynamixel.set_profile_velocity(motor_id, limit)
         self._enable_torque()
         self.motor_control_state = MotorControlType.POSITION_CONTROL
