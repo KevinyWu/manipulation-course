@@ -1,3 +1,4 @@
+import time
 import numpy as np
 from typing import Union
 from enum import Enum, auto
@@ -109,6 +110,18 @@ class Robot:
             self.pos_writer.changeParam(motor_id, data_write)
 
         self.pos_writer.txPacket()
+    
+    def set_and_wait_goal_pos(self, action, threshold=1):
+        """
+        Sets the goal position and waits until the robot reaches the goal position.
+        :param action: list or numpy array of target joint positions in range [0, 4096]
+        """
+        self.set_goal_pos(action)
+        while True:
+            time.sleep(0.1)
+            vel = self.read_velocity()
+            if np.all(np.abs(vel) <= threshold):
+                break
 
     def set_pwm(self, action):
         """

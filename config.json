@@ -1,30 +1,16 @@
 {
-    "Lfollower": {
-        "baudrate": 1000000,
-        "device_name": "/dev/ttyACM1",
-        "servo_ids": [13, 14, 15, 16, 17, 18],
-        "max_position_limit": [3072, 2800, 4096, 4096, 4096, 4096],
-        "min_position_limit": [1024, 1600, 0, 0, 0, 0],
-        "velocity_limit": [20, 20, 40, 40, 40, 50],
-        "pwm_limit": [885, 885, 885, 885, 885, 885],
-        "home_pos": [2270, 1600, 1070, 2080, 2060, 2660]
-    },
-    "Lleader": {
-        "baudrate": 1000000,
-        "device_name": "/dev/ttyACM0",
-        "servo_ids": [19, 20, 21, 22, 23, 24]
-    },
-    "Rfollower": {
+    "arm": {
         "baudrate": 1000000,
         "device_name": "/dev/ttyACM2",
         "servo_ids": [1, 2, 3, 4, 5, 6],
         "max_position_limit": [3072, 2800, 4096, 4096, 4096, 4096],
         "min_position_limit": [1024, 1600, 0, 0, 0, 0],
-        "velocity_limit": [20, 20, 40, 40, 40, 50],
+        "velocity_limit": [30, 20, 40, 40, 40, 50],
         "pwm_limit": [885, 885, 885, 885, 885, 885],
-        "home_pos": [2270, 1600, 1070, 2080, 2060, 2660]
+        "rest_pos": [2048, 1600, 1070, 2100, 2048, 2048],
+        "game_pos": [2048, 1800, 1850, 1100, 2048, 2048]
     },
-    "Rleader": {
+    "leader": {
         "baudrate": 1000000,
         "device_name": "/dev/ttyACM0",
         "servo_ids": [7, 8, 9, 10, 11, 12]
