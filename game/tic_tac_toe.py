@@ -13,10 +13,12 @@ with open('positions.json') as f:
 # Dynamixel configuration
 arm = Robot(device_name=arm_config['device_name'], 
             servo_ids=arm_config['servo_ids'],
-            velocity_limit=arm_config['velocity_limit'])
+            velocity_limit=arm_config['velocity_limit'],
+            max_position_limit=arm_config['max_position_limit'],
+            min_position_limit=arm_config['min_position_limit'],)
 
-# Go to game start position
-arm.set_and_wait_goal_pos(arm_config['game_pos'])
+# Go to home start position
+arm.set_and_wait_goal_pos(arm_config['home_pos'])
 
 def move_piece(start, end):
     arm.set_and_wait_goal_pos(positions[start]['hover_over'])
@@ -27,7 +29,7 @@ def move_piece(start, end):
     arm.set_and_wait_goal_pos(positions[end]['grasp'])
     arm.set_and_wait_goal_pos(positions[end]['pre_grasp'])
     arm.set_and_wait_goal_pos(positions[end]['hover_over'])
-    arm.set_and_wait_goal_pos(arm_config['game_pos'])
+    arm.set_and_wait_goal_pos(arm_config['home_pos'])
 
 
 # Sample game

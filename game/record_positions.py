@@ -21,11 +21,13 @@ def load_robot_settings(args):
 def initialize_robots(arm_config, leader_config):
     arm = Robot(device_name=arm_config['device_name'], 
                 servo_ids=arm_config['servo_ids'],
-                velocity_limit=arm_config['velocity_limit'])
+                velocity_limit=arm_config['velocity_limit'],
+                max_position_limit=arm_config['max_position_limit'],
+                min_position_limit=arm_config['min_position_limit'],)
     leader = None
     if leader_config:
         leader = Robot(device_name=leader_config['device_name'], 
-                    servo_ids=leader_config['servo_ids'])
+                       servo_ids=leader_config['servo_ids'])
         leader.set_trigger_torque()
     return arm, leader
 

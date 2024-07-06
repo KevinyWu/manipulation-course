@@ -16,13 +16,23 @@ class Robot:
                  device_name: str, 
                  baudrate: int=1_000_000, 
                  servo_ids: list=[1, 2, 3, 4, 5, 6],
-                 velocity_limit: Union[int, list, np.ndarray]=0) -> None:
+                 velocity_limit: Union[int, list, np.ndarray]=0,
+                 max_position_limit: Union[int, list, np.ndarray]=[3072, 2800, 3000, 3072, 4096, 2800],
+                 min_position_limit: Union[int, list, np.ndarray]=[1024, 1650, 1100, 1024, 0, 2020],
+                ) -> None:
         self.servo_ids = servo_ids
         if isinstance(velocity_limit, int):
-            velocity_limit = [velocity_limit, ] * len(self.servo_ids)
+            self.velocity_limit = [velocity_limit, ] * len(self.servo_ids)
         else:
-            velocity_limit = velocity_limit
-        self.velocity_limit = velocity_limit
+            self.velocity_limit = velocity_limit
+        if isinstance(max_position_limit, int):
+            self.max_position_limit = [max_position_limit, ] * len(self.servo_ids)
+        else:
+            self.max_position_limit = max_position_limit
+        if isinstance(min_position_limit, int):
+            self.min_position_limit = [min_position_limit, ] * len(self.servo_ids)
+        else:
+            self.min_position_limit = min_position_limit
         self.dynamixel = Dynamixel.Config(baudrate=baudrate, device_name=device_name).instantiate()
         self._init_motors()
 
@@ -96,13 +106,18 @@ class Robot:
             velocties.append(velocity)
         return np.array(velocties)
 
-    def set_goal_pos(self, action):
+    def set_goal_pos(self, action, servo_id=None):
         """
         :param action: list or numpy array of target joint positions in range [0, 4096]
+        :param servo_id: servo id to set the goal position if controlling only one servo
         """
+        # Clip the action to the limits
+        action = np.clip(action, self.min_position_limit, self.max_position_limit)
         if not self.motor_control_state is MotorControlType.POSITION_CONTROL:
             self._set_position_control()
         for i, motor_id in enumerate(self.servo_ids):
+            if servo_id is not None and servo_id != motor_id:
+                continue
             data_write = [DXL_LOBYTE(DXL_LOWORD(action[i])),
                           DXL_HIBYTE(DXL_LOWORD(action[i])),
                           DXL_LOBYTE(DXL_HIWORD(action[i])),
@@ -111,12 +126,14 @@ class Robot:
 
         self.pos_writer.txPacket()
     
-    def set_and_wait_goal_pos(self, action, threshold=1):
+    def set_and_wait_goal_pos(self, action, threshold=1, servo_id=None):
         """
         Sets the goal position and waits until the robot reaches the goal position.
         :param action: list or numpy array of target joint positions in range [0, 4096]
+        :param threshold: threshold for the velocity to consider the robot has reached the goal position
+        :param servo_id: servo id to set the goal position if controlling only one servo
         """
-        self.set_goal_pos(action)
+        self.set_goal_pos(action, servo_id=servo_id)
         while True:
             time.sleep(0.1)
             vel = self.read_velocity()
