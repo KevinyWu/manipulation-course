@@ -69,8 +69,8 @@ def main():
     arm_config, leader_config = load_robot_settings(args)
     arm, leader = initialize_robots(arm_config, leader_config)
     
-    # Go to game start position
-    arm.set_and_wait_goal_pos(arm_config['game_pos'])
+    # Go to game home position
+    arm.set_and_wait_goal_pos(arm_config['home_pos'])
 
     # Create positions.json if it does not exist
     if not os.path.exists('positions.json'):
@@ -97,8 +97,8 @@ def main():
     with open('positions.json', 'w') as f:
         json.dump(positions, f, indent=4)
 
-    # Go to home position and disable torque
-    arm.set_and_wait_goal_pos(arm_config['home_pos'])
+    # Go to rest position and disable torque
+    arm.set_and_wait_goal_pos(arm_config['rest_pos'])
     arm._disable_torque()
 
 if __name__ == "__main__":
