@@ -2,8 +2,8 @@ import os, json, threading, argparse
 from robot.robot import Robot
 
 # Square and pose types
-SQUARES = ['A', 'B', 'C', 'D', 'E', 'F'] + list(range(0, 9))
-POSE_TYPES = ['hover_over', 'pre_grasp', 'grasp', 'post_grasp']
+SQUARES = ['A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2', '3', '4', '5', '6', '7', '8']
+POSE_TYPES = ['hover', 'pre-grasp', 'grasp', 'post-grasp']
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Record positions for tic-tac-toe game.')
@@ -23,7 +23,9 @@ def initialize_robots(arm_config, leader_config):
                 servo_ids=arm_config['servo_ids'],
                 velocity_limit=arm_config['velocity_limit'],
                 max_position_limit=arm_config['max_position_limit'],
-                min_position_limit=arm_config['min_position_limit'],)
+                min_position_limit=arm_config['min_position_limit'],
+                position_p_gain=arm_config['position_p_gain'],
+                position_i_gain=arm_config['position_i_gain'])
     leader = None
     if leader_config:
         leader = Robot(device_name=leader_config['device_name'], 
