@@ -16,7 +16,9 @@ def initialize_robot(arm_config):
                 servo_ids=arm_config['servo_ids'],
                 velocity_limit=arm_config['velocity_limit'],
                 max_position_limit=arm_config['max_position_limit'],
-                min_position_limit=arm_config['min_position_limit'])
+                min_position_limit=arm_config['min_position_limit'],
+                position_p_gain=arm_config['position_p_gain'],
+                position_i_gain=arm_config['position_i_gain'])
     return arm
 
 def change_servo_angle(arm, servo_id, delta):
