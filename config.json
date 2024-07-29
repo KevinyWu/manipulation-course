@@ -1,7 +1,7 @@
 {
     "arm": {
         "baudrate": 1000000,
-        "device_name": "/dev/ttyACM1",
+        "device_name": "/dev/ttyACM2",
         "servo_ids": [25, 26, 27, 28, 29, 30],
         "velocity_limit": [30, 20, 40, 40, 40, 50],
         "max_position_limit": [3200, 2800, 3000, 4096, 3072, 2800],
@@ -14,7 +14,7 @@
     },
     "leader": {
         "baudrate": 1000000,
-        "device_name": "/dev/ttyACM2",
+        "device_name": "/dev/ttyACM3",
         "servo_ids": [7, 8, 9, 10, 11, 12]
     }
 }
